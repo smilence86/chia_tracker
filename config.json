@@ -1,0 +1,26 @@
+{
+    "interval": 5,
+    "accounts": [
+        {
+            "wallet": "",
+            "notifier": {
+                "wechat": [
+                    {
+                        "enable": true,
+                        "sckey": ""
+                    }
+                ],
+                "telegram": [
+                    {
+                        "enable": true,
+                        "token": "166*******:AA*******************",
+                        "chat_id": "42*******"
+                    }
+                ]
+            },
+            "history": [
+                
+            ]
+        }
+    ]
+}

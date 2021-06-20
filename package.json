@@ -1,0 +1,32 @@
+{
+  "name": "chia_tracker",
+  "version": "1.0.0",
+  "description": "tracking chia balance",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smilence86/chia_tracker.git"
+  },
+  "keywords": [
+    "chia",
+    "balance",
+    "change"
+  ],
+  "author": "smilence86@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smilence86/chia_tracker/issues"
+  },
+  "homepage": "https://github.com/smilence86/chia_tracker#readme",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "cron": "^1.8.2",
+    "jsonfile": "^6.1.0",
+    "puppeteer": "^10.0.0",
+    "superagent": "^6.1.0"
+  }
+}
