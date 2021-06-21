@@ -121,11 +121,17 @@ class Tracker{
             try{
                 const url = this.pagePrefix + wallet;
                 console.log(url);
-                const browser = await puppeteer.launch({
+                const options = {
                     headless: true,
                     args: ["--no-sandbox"],
-                    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
-                });
+                    // executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
+                };
+                console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
+                // use PUPPETEER_EXECUTABLE_PATH in docker instead of node_modules
+                if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+                    options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+                }
+                const browser = await puppeteer.launch(options);
                 const page = await browser.newPage();
 
                 await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36');
