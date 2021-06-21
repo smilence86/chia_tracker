@@ -30,7 +30,7 @@ class Tracker{
     }
 
     async trackingOneWallet(filepath, config, account) {
-        
+
         const result = await this.crawlBalance(account.wallet);
         // console.log(result);
         const { register, diff, from, to } = this.compareBalance(account, result.balance);
@@ -215,10 +215,10 @@ class Tracker{
 
     async sendNotification(register, account, price, from, to) {
         let title = `Watching wallet success`;
-        let content = `You have watching this wallet [${account.wallet}] successful, current price: ${price},  Have a nice day!`;
+        let content = `You have watching this wallet [${account.wallet}] successful, current price: $${price},  Have a nice day!`;
         if (!register) {
             title = `Chia balance changed`;
-            content = `Your wallet [${account.wallet}]'s balance has changed, from ${from} to ${to}, current price: ${price}`;
+            content = `Your wallet [${account.wallet}]'s balance has changed, from ${from} to ${to}, current price: $${price}`;
         }
 
         for await (const receiver of account.notifier.wechat) {
