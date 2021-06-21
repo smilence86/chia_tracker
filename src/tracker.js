@@ -30,6 +30,7 @@ class Tracker{
     }
 
     async trackingOneWallet(filepath, config, account) {
+        
         const result = await this.crawlBalance(account.wallet);
         // console.log(result);
         const { register, diff, from, to } = this.compareBalance(account, result.balance);
