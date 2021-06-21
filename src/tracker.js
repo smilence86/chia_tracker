@@ -32,7 +32,9 @@ class Tracker{
     async trackingOneWallet(filepath, config, account) {
 
         const result = await this.crawlBalance(account.wallet);
-        // console.log(result);
+        console.info(`crawled balance: ${result.balance}`);
+        console.info(`crawled price: ${result.price}`);
+        
         const { register, diff, from, to } = this.compareBalance(account, result.balance);
         
         // const price = await this.crawlPrice();
@@ -124,9 +126,8 @@ class Tracker{
                 const options = {
                     headless: true,
                     args: ["--no-sandbox"],
-                    // executablePath: process.env.PUPPETEER_EXECUTABLE_PATH
                 };
-                console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
+                // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
                 // use PUPPETEER_EXECUTABLE_PATH in docker instead of node_modules
                 if (process.env.PUPPETEER_EXECUTABLE_PATH) {
                     options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
