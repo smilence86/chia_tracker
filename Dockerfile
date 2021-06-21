@@ -20,9 +20,8 @@ RUN apk add --no-cache \
       yarn
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 RUN npm install
 
@@ -38,7 +37,7 @@ RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
 RUN npm audit fix
 
 FROM node:lts-alpine3.13
-RUN npm config set unsafe-perm true
+# RUN npm config set unsafe-perm true
 
 COPY --from=cache /usr/src/app/ /usr/src/app/
 COPY . /usr/src/app/
