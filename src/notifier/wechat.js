@@ -16,7 +16,7 @@ class Wechat{
                 .send({
                     text: title,
                     desp: content
-                }).timeout(10 * 1000);
+                }).timeout(10 * 1000).retry(5);
             console.log(res.text);
         } catch (e) {
             console.info(`------------- send to wechat failed ${now} --------------`);

@@ -16,7 +16,7 @@ class Telegram{
                 .send({
                     chat_id: chat_id,
                     text: content
-                }).timeout(10 * 1000);
+                }).timeout(10 * 1000).retry(5);
             console.log(res.text);
         } catch (e) {
             console.info(`------------- send to telegram failed ${now} --------------`);
