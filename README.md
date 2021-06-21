@@ -2,6 +2,10 @@
 
 Tracking your chia wallets which mining xch coin and getting a reward, receiving notifications through multi-channels.
 
+You can configure multi-wallets to watching, notifier for multi-users to receiving, It will not leak your wallet address or something else, run it at your own local devices without risk.
+
+It's open source and easy to use with docker.
+
 ## Edit config
 ```json
 {
