@@ -116,7 +116,6 @@ class Tracker{
      */
      async crawlBalance(wallet) {
         return new bluebird(async (resolve, reject) => {
-            console.log(wallet);
             let balance = -1;
             try{
                 const url = this.pagePrefix + wallet;
