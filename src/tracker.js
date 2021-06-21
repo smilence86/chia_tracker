@@ -19,17 +19,17 @@ class Tracker{
     }
 
     async start() {
-        console.log(`---------- ${new Date()} start checking:`);
+        console.log(`start checking: ${new Date()} ------------------`);
         const filepath = path.resolve(process.cwd(), 'config.json');
         const config = await this.readConfig(filepath);
 
         for await (const account of config.accounts) {
-            await this.handleOneWallet(filepath, config, account);
+            await this.trackingOneWallet(filepath, config, account);
         }
-        console.log(`----------- ${new Date()} checking completed. ----------\n\n`);
+        console.log(`checking completed ${new Date()} ------------------\n\n`);
     }
 
-    async handleOneWallet(filepath, config, account) {
+    async trackingOneWallet(filepath, config, account) {
         const result = await this.crawlBalance(account.wallet);
         // console.log(result);
         const { register, diff, from, to } = this.compareBalance(account, result.balance);
@@ -48,7 +48,7 @@ class Tracker{
             });
             await this.saveConfig(filepath, config);
             // send notification
-            await this.sendNotification(register, account, from, to);
+            await this.sendNotification(register, account, result.price, from, to);
         }
         // close puppeteer browser
         await result.browser.close();
@@ -212,15 +212,22 @@ class Tracker{
         return { register, diff, from, to };
     }
 
-    async sendNotification(register, account, from, to) {
+    async sendNotification(register, account, price, from, to) {
+        let title = `Watching wallet success`;
+        let content = `You have watching this wallet [${wallet}] successful, current price: ${price},  Have a nice day!`;
+        if (!register) {
+            title = `Chia balance changed`;
+            content = `Your wallet [${wallet}]'s balance has changed, from ${from} to ${to}, current price: ${price}`;
+        }
+
         for await (const receiver of account.notifier.wechat) {
             if (receiver.enable) {
-                await wechat.sendMessage(account.wallet, register, receiver.sckey, from, to);
+                await wechat.sendMessage(receiver.sckey, title, content);
             }
         }
         for await (const receiver of account.notifier.telegram) {
             if (receiver.enable) {
-                await telegram.sendMessage(account.wallet, register, receiver.token, receiver.chat_id, from, to);
+                await telegram.sendMessage(receiver.token, receiver.chat_id, content);
             }
         }
     }

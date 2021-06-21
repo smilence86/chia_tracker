@@ -6,14 +6,8 @@ class Wechat{
 
     }
 
-    async sendMessage(wallet, register, sckey, from, to) {
+    async sendMessage(sckey, title, content) {
         const now = new Date();
-        let title = `Watching wallet success`;
-        let content = `You have watching this wallet [${wallet}] successful,  Have a nice day!`;
-        if (!register) {
-            title = `Your wallet's balance has changed, from ${from} to ${to}.`;
-            content = `Your wallet [${wallet}]'s balance has changed, from ${from} to ${to}.`;
-        }
         try {
             const url = `https://sctapi.ftqq.com/${sckey}.send`;
             // console.info(url);
@@ -27,6 +21,7 @@ class Wechat{
         } catch (e) {
             console.info(`------------- send to wechat failed ${now} --------------`);
             console.info(`title: ${title}`);
+            console.info(`content: ${content}`);
             console.error(e.stack || e);
         }
     }

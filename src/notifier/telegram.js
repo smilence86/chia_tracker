@@ -6,12 +6,8 @@ class Telegram{
 
     }
 
-    async sendMessage(wallet, register, token, chat_id, from, to) {
+    async sendMessage(token, chat_id, content) {
         const now = new Date();
-        let content = `You have watching this wallet [${wallet}] successful,  Have a nice day!`;
-        if (!register) {
-            content = `Your wallet [${wallet}]'s balance has changed, from ${from} to ${to}.`;
-        }
         try {
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
             // console.info(url);
@@ -24,6 +20,7 @@ class Telegram{
             console.log(res.text);
         } catch (e) {
             console.info(`------------- send to telegram failed ${now} --------------`);
+            console.info(`chat_id: ${chat_id}`);
             console.info(`content: ${content}`);
             console.error(e.stack || e);
         }
