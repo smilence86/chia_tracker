@@ -54,8 +54,8 @@ class Tracker{
             await this.sendNotification(register, account, result.price, from, to);
         }
         // close puppeteer browser
-        await result.page.close();
-        await result.browser.close();
+        // await result.page.close();
+        // await result.browser.close();
     }
 
     async readConfig(filepath) {
@@ -123,17 +123,19 @@ class Tracker{
             let balance = -1;
             try{
                 const url = this.pagePrefix + wallet;
-                console.log(url);
+                console.log(`\nstart checking: ${url}`);
                 const options = {
                     headless: true,
                     args: ["--no-sandbox"],
                 };
                 // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
+                
                 // use PUPPETEER_EXECUTABLE_PATH in docker instead of node_modules
                 if (process.env.PUPPETEER_EXECUTABLE_PATH) {
                     options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
                 }
                 const browser = await puppeteer.launch(options);
+
                 const page = await browser.newPage();
 
                 await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36');
@@ -157,19 +159,23 @@ class Tracker{
                     }
                     if (results.balance && results.price) {
                         // await browser.close();
-                        results.page = page;
-                        results.browser = browser;
-                        resolve(results);
+                        // results.page = page;
+                        // results.browser = browser;
+                        // resolve(results);
                     }
                 });
 
-                await page.goto(url, { waitUntil: 'domcontentloaded' });
+                await page.goto(url, { waitUntil: 'networkidle0' });
 
                 // await page.waitForTimeout(3000);
 
                 // await page.screenshot({ path: 'example.png' });
 
-                // await browser.close();
+                await page.close();
+
+                await browser.close();
+
+                resolve(results);
 
             }catch(e){
                 console.error('use puppeteer error');
