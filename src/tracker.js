@@ -19,14 +19,14 @@ class Tracker{
     }
 
     async start() {
-        console.log(`start checking: ${new Date()} ------------------`);
+        console.log(`start checking: [${new Date()}] ------------------`);
         const filepath = path.resolve(process.cwd(), 'config.json');
         const config = await this.readConfig(filepath);
 
         for await (const account of config.accounts) {
             await this.trackingOneWallet(filepath, config, account);
         }
-        console.log(`checking completed ${new Date()} ------------------\n\n`);
+        console.log(`check completed. [${new Date()}] ------------------\n\n`);
     }
 
     async trackingOneWallet(filepath, config, account) {
@@ -54,6 +54,7 @@ class Tracker{
             await this.sendNotification(register, account, result.price, from, to);
         }
         // close puppeteer browser
+        await result.page.close();
         await result.browser.close();
     }
 
@@ -62,7 +63,7 @@ class Tracker{
             throw 'Missing config file, please provide it first!';
         }
         const config = await jsonfile.readFile(filepath);
-        console.log(config);
+        // console.log(config);
         return config;
     }
 
@@ -156,6 +157,7 @@ class Tracker{
                     }
                     if (results.balance && results.price) {
                         // await browser.close();
+                        results.page = page;
                         results.browser = browser;
                         resolve(results);
                     }
@@ -216,10 +218,11 @@ class Tracker{
 
     async sendNotification(register, account, price, from, to) {
         let title = `Watching wallet success`;
-        let content = `You have watching this wallet [${account.wallet}] successful, current price: $${price},  Have a nice day!`;
+        let content = `You have watching this wallet [${account.wallet}] successful, xch current price: $${price},  Have a nice day!`;
+        
         if (!register) {
-            title = `Chia balance changed`;
-            content = `Your wallet [${account.wallet}]'s balance has changed, from ${from} to ${to}, current price: $${price}`;
+            title = `Chia wallet changed`;
+            content = `Your wallet [${account.wallet}]'s balance has changed, from ${from} to ${to}, xch current price: $${price}`;
         }
 
         for await (const receiver of account.notifier.wechat) {
