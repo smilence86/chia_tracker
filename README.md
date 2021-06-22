@@ -1,8 +1,8 @@
 # chia_tracker
 
-Tracking your chia wallets which mining xch coin and getting a reward, receiving notifications through multi-channels.
+Tracking your chia wallets and receiving notifications which getting rewards from mining xch coin.
 
-You can configure multi-wallets to watching, notifier for multi-users to receiving, It will not leak your wallet address or something else, run it at your own local devices without risk.
+You can configure multi-wallets to tracking, notifier for multi-users to receiving, It's safe and will not leak your wallet address or something else, run it at your own local devices without risk.
 
 It's open source and easy to use with docker.
 
