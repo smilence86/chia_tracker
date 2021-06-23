@@ -56,6 +56,7 @@ class Tracker{
         // close puppeteer browser
         // await result.page.close();
         // await result.browser.close();
+        console.log('\n');
     }
 
     async readConfig(filepath) {
@@ -123,10 +124,10 @@ class Tracker{
             let balance = -1;
             try{
                 const url = this.pagePrefix + wallet;
-                console.log(`\nstart checking: ${url}`);
+                console.log(`checking: ${url}`);
                 const options = {
                     headless: true,
-                    args: ["--no-sandbox"],
+                    args: ['--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote'],
                 };
                 // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
                 
@@ -222,13 +223,27 @@ class Tracker{
         return { register, diff, from, to };
     }
 
+    /**
+     * use markdown style
+     */
     async sendNotification(register, account, price, from, to) {
         let title = `Watching wallet success`;
-        let content = `You have watching this wallet [${account.wallet}] successful, xch current price: $${price},  Have a nice day!`;
+        const detailUrl = this.pagePrefix + account.wallet;
+        let content = `You have watching wallet [xxx] successful
+
+        xch current price: $${price}
+        
+        __[view detail](${detailUrl})__`;
         
         if (!register) {
             title = `Chia wallet changed`;
-            content = `Your wallet [${account.wallet}]'s balance has changed, from ${from} to ${to}, xch current price: $${price}`;
+            content = `Your wallet [${account.wallet}]'s balance has changed
+            
+            from ${from} to ${to}
+            
+            xch current price: $${price}
+            
+            __[view detail](${detailUrl})__`;
         }
 
         for await (const receiver of account.notifier.wechat) {
