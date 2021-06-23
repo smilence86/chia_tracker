@@ -15,7 +15,7 @@ class Telegram{
                 .set('Content-type', 'application/x-www-form-urlencoded')
                 .send({
                     chat_id: chat_id,
-                    text: content.replace(/./g, '\.'),
+                    text: content.replace(/\./g, '\.'),
                     parse_mode: 'MarkdownV2'
                 }).timeout(10 * 1000).retry(5);
             console.log(res.text);
