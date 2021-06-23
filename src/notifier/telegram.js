@@ -7,6 +7,7 @@ class Telegram{
     }
 
     async sendMessage(token, chat_id, content) {
+        const text = content.replace(/\./g, '\\.').replace(/\</g, '\\<').replace(/\>/g, '\\>');
         const now = new Date();
         try {
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -15,10 +16,10 @@ class Telegram{
                 .set('Content-type', 'application/x-www-form-urlencoded')
                 .send({
                     chat_id: chat_id,
-                    text: content.replace(/\./g, '\.'),
+                    text,
                     parse_mode: 'MarkdownV2'
                 }).timeout(10 * 1000).retry(5);
-            console.log(res.text);
+            console.log(`\n${res.text}`);
         } catch (e) {
             console.info(`------------- send to telegram failed ${now} --------------`);
             console.info(`chat_id: ${chat_id}`);

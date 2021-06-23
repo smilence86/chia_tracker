@@ -229,21 +229,21 @@ class Tracker{
     async sendNotification(register, account, price, from, to) {
         let title = `Watching wallet success`;
         const detailUrl = this.pagePrefix + account.wallet;
-        let content = `You have watching wallet [${account.wallet}] successful
+        let content = `You have watching wallet <*${account.wallet}*> successful.
 
-xch current price: $${price}
+xch price: $${price}.
         
-__[view detail](${detailUrl}/)__`;
+__[view detail](${detailUrl})__.`;
         
         if (!register) {
             title = `Chia wallet changed`;
-            content = `Your wallet [${account.wallet}]'s balance has changed
+            content = `Your wallet <*${account.wallet}*>'s balance has changed.
             
-from ${from} to ${to}
+from ${from} to ${to}.
             
-xch current price: $${price}
+xch price: $${price}.
             
-__[view detail](${detailUrl}/)__`;
+__[view detail](${detailUrl})__.`;
         }
 
         for await (const receiver of account.notifier.wechat) {
