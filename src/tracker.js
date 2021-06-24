@@ -170,7 +170,7 @@ class Tracker{
 
                 await page.goto(url, { waitUntil: 'networkidle0' });
 
-                // await page.waitForTimeout(3000);
+                await page.waitForTimeout(1000);
 
                 // await page.screenshot({ path: 'example.png' });
 
