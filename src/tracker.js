@@ -127,6 +127,8 @@ class Tracker{
                 console.log(`checking: ${url}`);
                 const options = {
                     headless: true,
+                    ignoreHTTPSErrors: true,
+                    acceptInsecureCerts: true,
                     args: ['--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote'],
                 };
                 // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
