@@ -39,7 +39,7 @@ It's open source and easy to use with docker.
 
 ## Run with docker
 ```{r, engine='sh', count_lines}
-docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest /bin/sh -c 'cd /usr/src/app && node index.js'
+docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
 ```
 * Replacing "folder_path" with yours.
 
@@ -67,7 +67,7 @@ docker pull smilence86/chia_tracker:latest
 docker rmi $(docker images -f "dangling=true" -q)
 
 # run container again
-docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest /bin/sh -c 'cd /usr/src/app && node index.js'
+docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
 ```
 
 ## Statistic docker container
