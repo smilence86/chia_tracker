@@ -24,7 +24,11 @@ class Tracker{
         const config = await this.readConfig(filepath);
 
         for await (const account of config.accounts) {
-            await this.trackingOneWallet(filepath, config, account);
+            const res = await this.trackingOneWallet(filepath, config, account);
+            if (res === -1) {
+                continue;
+            }
+            console.log('\n');
         }
         console.log(`check completed. [${new Date()}] ------------------\n\n`);
     }
@@ -34,6 +38,10 @@ class Tracker{
         const result = await this.crawlBalance(account.wallet);
         console.info(`crawled balance: ${result.balance}`);
         console.info(`crawled price: ${result.price}`);
+
+        if (result.balance === -1) {
+            return result.balance;
+        }
         
         const { register, diff, from, to } = this.compareBalance(account, result.balance);
         
@@ -56,7 +64,6 @@ class Tracker{
         // close puppeteer browser
         // await result.page.close();
         // await result.browser.close();
-        console.log('\n');
     }
 
     async readConfig(filepath) {
@@ -121,8 +128,14 @@ class Tracker{
      */
      async crawlBalance(wallet) {
         return new bluebird(async (resolve, reject) => {
-            let balance = -1;
-            try{
+            let browser = null;
+            let page = null;
+
+            const results = {
+                balance: -1,
+                price: -1
+            };
+            try {
                 const url = this.pagePrefix + wallet;
                 console.log(`checking: ${url}`);
                 const options = {
@@ -137,14 +150,13 @@ class Tracker{
                 if (process.env.PUPPETEER_EXECUTABLE_PATH) {
                     options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
                 }
-                const browser = await puppeteer.launch(options);
+                browser = await puppeteer.launch(options);
 
-                const page = await browser.newPage();
+                page = await browser.newPage();
 
                 await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36');
                 await page.setViewport({ width: 1920, height: 1080 });
 
-                const results = {};
                 page.on('response', async response => {
                     if (response.request().resourceType() !== 'xhr'){
                         return;
@@ -160,12 +172,12 @@ class Tracker{
                     if (response.url() === this.pricePrefix) {
                         results.price = JSON.parse(textBody).price;
                     }
-                    if (results.balance && results.price) {
-                        // await browser.close();
-                        // results.page = page;
-                        // results.browser = browser;
-                        // resolve(results);
-                    }
+                    // if (results.balance && results.price) {
+                    //     await browser.close();
+                    //     results.page = page;
+                    //     results.browser = browser;
+                    //     resolve(results);
+                    // }
                 });
 
                 await page.goto(url, { waitUntil: 'networkidle0' });
@@ -181,10 +193,16 @@ class Tracker{
                 resolve(results);
 
             }catch(e){
-                console.error('use puppeteer error');
+                console.error('------------ puppeteer crawl failed -------------');
                 console.error(e.stack || e);
+                if (page) {
+                    await page.close();
+                }
+                if (browser) {
+                    await browser.close();
+                }
+                resolve(results);
             }
-            return balance;
         });
     }
 
