@@ -70,7 +70,17 @@ docker rmi $(docker images -f "dangling=true" -q)
 docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
 ```
 
+&nbsp;  
+
 ## Statistic docker container
 ```{r, engine='sh', count_lines}
 docker stats chia_tracker
 ```
+&nbsp;  
+
+## Test get notification
+
+You can make a test with faucets below:  
+[https://faucet.chia.net](https://faucet.chia.net)  
+[https://xchfaucet.togatech.org](https://xchfaucet.togatech.org)
+
