@@ -84,3 +84,4 @@ You can make a test with faucets below:
 [https://faucet.chia.net](https://faucet.chia.net)  
 [https://xchfaucet.togatech.org](https://xchfaucet.togatech.org)
 
+or visit [https://chialinks.com/faucets](https://chialinks.com/faucets) to get more.
