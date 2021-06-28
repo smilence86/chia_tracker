@@ -78,7 +78,7 @@ docker stats chia_tracker
 ```
 &nbsp;  
 
-## Test get notification
+## Test notifications
 
 You can make a test with faucets below:  
 [https://faucet.chia.net](https://faucet.chia.net)  
