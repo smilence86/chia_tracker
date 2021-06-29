@@ -1,11 +1,11 @@
 image: smilence86/chia_tracker:latest
 tags: ["latest"]
 manifests:
-  - image: smilence86/chia_tracker:latest
+  - image: smilence86/chia_tracker:amd64_latest
     platform:
       architecture: amd64
       os: linux
-  - image: smilence86/chia_tracker:latest
+  - image: smilence86/chia_tracker:arm64_latest
     platform:
       architecture: arm64
       os: linux
