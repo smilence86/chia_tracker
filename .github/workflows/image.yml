@@ -21,4 +21,4 @@ jobs:
         run: |
           docker buildx build --push \
             --tag smilence86/chia_tracker:latest \
-            --platform linux/amd64,linux/arm32,linux/arm64 .
+            --platform linux/amd64,linux/arm,linux/arm64 .
