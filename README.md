@@ -4,7 +4,7 @@ Tracking your chia wallets and receiving notifications which getting rewards fro
 
 You can configure multi-wallets to tracking, notifier for multi-users to receiving, It's safe and will not leak your wallet address or something else, run it at your own local devices without risk.
 
-It's open source and easy to use with docker.
+It's open source and easy to use with docker, support multi-arch such as amd64, arm64.
 
 ## Edit config
 ```json
