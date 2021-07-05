@@ -12,7 +12,7 @@ It's open source and easy to use with docker, support multi-arch such as x86, ar
 
 Currently there are two ways to get notifications:
 
-Wechat serverChan: [https://sct.ftqq.com/forward](https://sct.ftqq.com/forward)  
+Wechat serverChan: [https://sct.ftqq.com](https://sct.ftqq.com)  
 Telegram bot: [https://core.telegram.org/bots#6-botfather](https://core.telegram.org/bots#6-botfather)
 
 &nbsp;  

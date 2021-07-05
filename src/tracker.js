@@ -222,7 +222,8 @@ class Tracker{
             from = 0;
             to = balance;
         } else {
-            const lastBalance = account.history.pop().balance;
+            // get last balance
+            const lastBalance = account.history[account.history.length - 1].balance;
             if (balance !== lastBalance) {
                 diff = true;
                 from = lastBalance;
