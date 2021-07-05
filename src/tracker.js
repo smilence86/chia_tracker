@@ -244,7 +244,7 @@ xch price: $${price}.
         
 __[view detail](${detailUrl})__.
 
-OS: ${os.arch()}.
+platform: ${os.platform()}, arch: ${os.arch()}.
 
 time: ${new Date()}.`;
         
@@ -258,7 +258,7 @@ xch price: $${price}.
             
 __[view detail](${detailUrl})__.
 
-OS: ${os.arch()}.
+platform: ${os.platform()}, arch: ${os.arch()}.
 
 time: ${new Date()}.`;
         }
