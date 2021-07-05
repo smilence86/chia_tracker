@@ -7,7 +7,7 @@ class Telegram{
     }
 
     async sendMessage(token, chat_id, content) {
-        const text = content.replace(/\./g, '\\.').replace(/\</g, '\\<').replace(/\>/g, '\\>');
+        const text = content.replace(/\./g, '\\.').replace(/\</g, '\\<').replace(/\>/g, '\\>').replace(/\+/g, '\\+');
         const now = new Date();
         try {
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
