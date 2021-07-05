@@ -1,4 +1,5 @@
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import jsonfile from 'jsonfile';
 import bluebird from 'bluebird';
@@ -45,9 +46,6 @@ class Tracker{
         
         const { register, diff, from, to } = this.compareBalance(account, result.balance);
         
-        // const price = await this.crawlPrice();
-        // console.log(price);
-
         if (!diff) {
             console.info(`Wallet [${account.wallet}]'s balance has no change.`);
         } else {
@@ -61,9 +59,6 @@ class Tracker{
             // send notification
             await this.sendNotification(register, account, result.price, from, to);
         }
-        // close puppeteer browser
-        // await result.page.close();
-        // await result.browser.close();
     }
 
     async readConfig(filepath) {
@@ -172,12 +167,6 @@ class Tracker{
                     if (response.url() === this.pricePrefix) {
                         results.price = JSON.parse(textBody).price;
                     }
-                    // if (results.balance && results.price) {
-                    //     await browser.close();
-                    //     results.page = page;
-                    //     results.browser = browser;
-                    //     resolve(results);
-                    // }
                 });
 
                 await page.goto(url, { waitUntil: 'networkidle0' });
@@ -253,7 +242,11 @@ class Tracker{
 
 xch price: $${price}.
         
-__[view detail](${detailUrl})__.`;
+__[view detail](${detailUrl})__.
+
+OS: ${os.arch()}.
+
+time: ${new Date()}.`;
         
         if (!register) {
             title = `Chia wallet changed`;
@@ -263,7 +256,11 @@ from ${from} to ${to}.
             
 xch price: $${price}.
             
-__[view detail](${detailUrl})__.`;
+__[view detail](${detailUrl})__.
+
+OS: ${os.arch()}.
+
+time: ${new Date()}.`;
         }
 
         for await (const receiver of account.notifier.wechat) {

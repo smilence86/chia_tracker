@@ -4,7 +4,7 @@ Tracking your chia wallets and receiving notifications which getting rewards fro
 
 You can configure multi-wallets to tracking, notifier for multi-users to receiving, It's safe and will not leak your wallet address or something else, run it at your own local devices without risk.
 
-It's open source and easy to use with docker, support multi-arch such as amd64, arm64.
+It's open source and easy to use with docker, support multi-arch such as x86, arm.
 
 ## Edit config
 ```json
@@ -12,16 +12,18 @@ It's open source and easy to use with docker, support multi-arch such as amd64, 
     "interval": 5,
     "accounts": [
         {
-            "wallet": "",
+            "wallet": "xch1******",
             "notifier": {
                 "wechat": [
                     {
+                        "name": "loki",
                         "enable": true,
                         "sckey": ""
                     }
                 ],
                 "telegram": [
                     {
+                        "name": "loki",
                         "enable": true,
                         "token": "166*******:AA*******************",
                         "chat_id": "42*******"

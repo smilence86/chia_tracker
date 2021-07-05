@@ -2,16 +2,18 @@
     "interval": 5,
     "accounts": [
         {
-            "wallet": "",
+            "wallet": "xch1******",
             "notifier": {
                 "wechat": [
                     {
+                        "name": "loki",
                         "enable": true,
                         "sckey": ""
                     }
                 ],
                 "telegram": [
                     {
+                        "name": "loki",
                         "enable": true,
                         "token": "166*******:AA*******************",
                         "chat_id": "42*******"
