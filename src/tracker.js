@@ -240,7 +240,7 @@ class Tracker{
         const detailUrl = this.pagePrefix + account.wallet;
         let content = `You have watching wallet <*${account.wallet}*> successful.
 
-xch price: $${price}.
+xch price: $${parseInt(price)}.
         
 __[view detail](${detailUrl})__.
 
@@ -254,7 +254,7 @@ time: ${new Date().toLocaleString()}.`;
             
 from ${from} to ${to}.
             
-xch price: $${price}.
+xch price: $${parseInt(price)}.
             
 __[view detail](${detailUrl})__.
 
