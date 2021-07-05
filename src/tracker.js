@@ -244,9 +244,9 @@ xch price: $${price}.
         
 __[view detail](${detailUrl})__.
 
-platform: ${os.platform()}, arch: ${os.arch()}.
+os: ${os.platform()}/${os.arch()}.
 
-time: ${new Date()}.`;
+time: ${new Date().toLocaleString()}.`;
         
         if (!register) {
             title = `Chia wallet changed`;
@@ -258,9 +258,9 @@ xch price: $${price}.
             
 __[view detail](${detailUrl})__.
 
-platform: ${os.platform()}, arch: ${os.arch()}.
+os: ${os.platform()}/${os.arch()}.
 
-time: ${new Date()}.`;
+time: ${new Date().toLocaleString()}.`;
         }
 
         for await (const receiver of account.notifier.wechat) {
