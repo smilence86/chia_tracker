@@ -149,7 +149,7 @@ class Tracker{
 
                 page = await browser.newPage();
 
-                await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36');
+                await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
                 await page.setViewport({ width: 1920, height: 1080 });
 
                 page.on('response', async response => {
@@ -157,8 +157,8 @@ class Tracker{
                         return;
                     }
                     // console.log(wallet);
-                    // console.log('------------ url ------------');
-                    // console.log(response.url());
+                    console.log('------------ url ------------');
+                    console.log(response.url());
                     const textBody = await response.text();
                     console.log(textBody);
                     if (response.url() === this.balancePrefix + wallet) {
