@@ -14,9 +14,9 @@ class Tracker{
 
         this.pagePrefix = 'https://www.chiaexplorer.com/blockchain/address/';
         
-        this.balancePrefix = 'https://api2.chiaexplorer.com/balance/';
+        this.balancePrefix = 'https://abc.chiaexplorer.com/balance/';
 
-        this.pricePrefix = 'https://api2.chiaexplorer.com/currentPrice';
+        this.pricePrefix = 'https://abc.chiaexplorer.com/currentPrice';
     }
 
     async start() {
@@ -160,7 +160,7 @@ class Tracker{
                     // console.log('------------ url ------------');
                     // console.log(response.url());
                     const textBody = await response.text();
-                    // console.log(textBody);
+                    console.log(textBody);
                     if (response.url() === this.balancePrefix + wallet) {
                         results.balance = JSON.parse(textBody).netBalance / 1000000000000;
                     }
