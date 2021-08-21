@@ -7,6 +7,7 @@ import request from 'superagent';
 import puppeteer from 'puppeteer';
 import { wechat } from './notifier/wechat.js';
 import { telegram } from './notifier/telegram.js';
+import randomUseragent from 'random-useragent';
 
 class Tracker{
 
@@ -14,7 +15,7 @@ class Tracker{
 
         this.pagePrefix = 'https://www.chiaexplorer.com/blockchain/address/';
         
-        this.balancePrefix = 'https://abc.chiaexplorer.com/balance/';
+        this.balancePrefix = 'https://this-api-will-break-all-the-time-do-not-use-2124.chiaexplorer.com/balance/';
 
         this.pricePrefix = 'https://abc.chiaexplorer.com/currentPrice';
     }
@@ -149,7 +150,9 @@ class Tracker{
 
                 page = await browser.newPage();
 
-                await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
+                const userAgent = randomUseragent.getRandom();
+                // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
+                await page.setUserAgent(userAgent);
                 await page.setViewport({ width: 1920, height: 1080 });
 
                 page.on('response', async response => {
@@ -161,11 +164,21 @@ class Tracker{
                     console.log(response.url());
                     const textBody = await response.text();
                     console.log(textBody);
-                    if (response.url() === this.balancePrefix + wallet) {
-                        results.balance = JSON.parse(textBody).netBalance / 1000000000000;
-                    }
-                    if (response.url() === this.pricePrefix) {
-                        results.price = JSON.parse(textBody).price;
+                    // if (response.url() === this.balancePrefix + wallet) {
+                    //     results.balance = JSON.parse(textBody).netBalance / 1000000000000;
+                    // }
+                    // if (response.url() === this.pricePrefix) {
+                    //     results.price = JSON.parse(textBody).price;
+                    // }
+                    try {
+                        if (JSON.parse(textBody).netBalance) {
+                            results.balance = JSON.parse(textBody).netBalance / 1000000000000;
+                        }
+                        if (JSON.parse(textBody).price) {
+                            results.price = JSON.parse(textBody).price;
+                        }
+                    } catch (e) {
+
                     }
                 });
 
