@@ -164,21 +164,16 @@ class Tracker{
                     console.log(response.url());
                     const textBody = await response.text();
                     console.log(textBody);
-                    // if (response.url() === this.balancePrefix + wallet) {
-                    //     results.balance = JSON.parse(textBody).netBalance / 1000000000000;
-                    // }
-                    // if (response.url() === this.pricePrefix) {
-                    //     results.price = JSON.parse(textBody).price;
-                    // }
                     try {
-                        if (JSON.parse(textBody).netBalance) {
-                            results.balance = JSON.parse(textBody).netBalance / 1000000000000;
+                        const netBalance = JSON.parse(textBody).netBalance
+                        if (typeof netBalance === 'number') {
+                            results.balance = netBalance / 1000000000000;  // price unit: mojo
                         }
                         if (JSON.parse(textBody).price) {
                             results.price = JSON.parse(textBody).price;
                         }
                     } catch (e) {
-
+                        console.error(e.stack || e);
                     }
                 });
 
