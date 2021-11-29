@@ -73,11 +73,14 @@ docker stop chia_tracker
 # delete container
 docker rm chia_tracker
 
+# delete image
+docker rmi smilence86/chia_tracker:latest
+
+# or delete untagged images
+docker rmi $(docker images -f "dangling=true" -q)
+
 # download newest image
 docker pull smilence86/chia_tracker:latest
-
-# remove untagged images
-docker rmi $(docker images -f "dangling=true" -q)
 
 # run container again
 docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
