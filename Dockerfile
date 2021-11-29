@@ -1,12 +1,18 @@
 FROM node:14-alpine
 
-RUN apk add --no-cache \
-      chromium \
-      nss \
-      freetype \
-      harfbuzz \
-      ca-certificates \
-      ttf-freefont
+# RUN apk add --no-cache \
+#       chromium \
+#       nss \
+#       freetype \
+#       harfbuzz \
+#       ca-certificates \
+#       ttf-freefont
+
+RUN echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache \
+      chromium@edge \
+      nss@edge
 
 # RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
