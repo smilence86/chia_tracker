@@ -21,7 +21,7 @@ class Tracker{
     }
 
     async start() {
-        console.log(`start checking: [${new Date()}] ------------------`);
+        console.log(`start checking: [${new Date().toISOString()}] ------------------`);
         const filepath = path.resolve(process.cwd(), 'config.json');
         const config = await this.readConfig(filepath);
 
@@ -32,7 +32,7 @@ class Tracker{
             }
             console.log('\n');
         }
-        console.log(`check completed. [${new Date()}] ------------------\n\n`);
+        console.log(`check completed. [${new Date().toISOString()}] ------------------\n\n`);
     }
 
     async trackingOneWallet(filepath, config, account) {
