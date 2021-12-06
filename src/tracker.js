@@ -140,7 +140,7 @@ class Tracker{
                     acceptInsecureCerts: true,
                     args: ['--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote'],
                 };
-                // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
+                console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
                 
                 // use PUPPETEER_EXECUTABLE_PATH in docker instead of node_modules
                 if (process.env.PUPPETEER_EXECUTABLE_PATH) {
