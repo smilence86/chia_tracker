@@ -147,13 +147,17 @@ class Tracker{
                     options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
                 }
                 browser = await puppeteer.launch(options);
+                console.log('launched');
 
                 page = await browser.newPage();
+                console.log('newPage');
 
                 const userAgent = randomUseragent.getRandom();
                 // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
                 await page.setUserAgent(userAgent);
+                console.log('setUserAgent');
                 await page.setViewport({ width: 1920, height: 1080 });
+                console.log('setViewport');
 
                 page.on('response', async response => {
                     if (response.request().resourceType() !== 'xhr'){
