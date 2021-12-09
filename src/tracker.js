@@ -156,6 +156,7 @@ class Tracker{
                 // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
                 await page.setUserAgent(userAgent);
                 console.log('setUserAgent');
+
                 await page.setViewport({ width: 1920, height: 1080 });
                 console.log('setViewport');
 
@@ -179,23 +180,28 @@ class Tracker{
                             results.price = JSON.parse(textBody).price;
                         }
                     } catch (e) {
-                        console.error(e.stack || e);
+                        // console.error(e.stack || e);
                     }
                 });
 
                 await page.goto(url, { waitUntil: 'networkidle0' });
+                console.log('goto page');
 
                 await page.waitForTimeout(1000);
+
+                console.log('waitForTimeout');
 
                 // await page.screenshot({ path: 'example.png' });
 
                 await page.close();
+                console.log('page.close');
 
                 await browser.close();
+                console.log('browser.close');
 
                 resolve(results);
 
-            }catch(e){
+            } catch (e) {
                 console.error('------------ puppeteer crawl failed -------------');
                 console.error(e.stack || e);
                 if (page) {
