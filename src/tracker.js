@@ -161,7 +161,7 @@ class Tracker{
                 await page.setViewport({ width: 1920, height: 1080 });
                 console.log('setViewport');
 
-                page.setDefaultNavigationTimeout(10000);
+                page.setDefaultNavigationTimeout(20000);
                 console.log('setDefaultNavigationTimeout');
 
                 page.on('response', async response => {
@@ -195,7 +195,7 @@ class Tracker{
                 await page.goto(url, { waitUntil: 'networkidle0' });
                 console.log('goto page');
 
-                await page.waitForTimeout(2000);
+                await page.waitForTimeout(1000);
                 console.log('waitForTimeout');
 
                 // await page.screenshot({ path: 'example.png' });
