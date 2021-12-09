@@ -163,17 +163,19 @@ class Tracker{
                     if (response.request().resourceType() !== 'xhr'){
                         return;
                     }
-                    // console.log(wallet);
-                    console.log('------------ url ------------');
-                    console.log(response.url());
                     const textBody = await response.text();
-                    console.log(textBody);
                     try {
+                        // parse balance
                         const netBalance = JSON.parse(textBody).netBalance
                         if (typeof netBalance === 'number') {
+                            console.log(`url: ${response.url()}`);
+                            console.log(textBody);
                             results.balance = netBalance / 1000000000000;  // price unit: mojo
                         }
+                        // parse price
                         if (JSON.parse(textBody).price) {
+                            console.log(`url: ${response.url()}`);
+                            console.log(textBody);
                             results.price = JSON.parse(textBody).price;
                         }
                     } catch (e) {
