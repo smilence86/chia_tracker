@@ -138,14 +138,15 @@ class Tracker{
                     headless: true,
                     ignoreHTTPSErrors: true,
                     acceptInsecureCerts: true,
-                    args: ['--disable-gpu', '--no-sandbox', '--single-process', '--no-zygote'],
+                    args: ['--headless', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote']
                 };
-                console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
+                // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
                 
                 // use PUPPETEER_EXECUTABLE_PATH in docker instead of node_modules
                 if (process.env.PUPPETEER_EXECUTABLE_PATH) {
                     options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
                 }
+
                 browser = await puppeteer.launch(options);
                 console.log('launched');
 
@@ -159,6 +160,9 @@ class Tracker{
 
                 await page.setViewport({ width: 1920, height: 1080 });
                 console.log('setViewport');
+
+                page.setDefaultNavigationTimeout(10000);
+                console.log('setDefaultNavigationTimeout');
 
                 page.on('response', async response => {
                     if (response.request().resourceType() !== 'xhr'){
@@ -184,11 +188,14 @@ class Tracker{
                     }
                 });
 
+                page.on('error', err => {
+                    console.error('Puppeteer error.', err);
+                });
+
                 await page.goto(url, { waitUntil: 'networkidle0' });
                 console.log('goto page');
 
                 await page.waitForTimeout(1000);
-
                 console.log('waitForTimeout');
 
                 // await page.screenshot({ path: 'example.png' });
