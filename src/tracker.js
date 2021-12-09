@@ -195,7 +195,7 @@ class Tracker{
                 await page.goto(url, { waitUntil: 'networkidle0' });
                 console.log('goto page');
 
-                await page.waitForTimeout(1000);
+                await page.waitForTimeout(2000);
                 console.log('waitForTimeout');
 
                 // await page.screenshot({ path: 'example.png' });
