@@ -171,7 +171,7 @@ class Tracker{
                     const textBody = await response.text();
                     try {
                         // parse balance
-                        const netBalance = JSON.parse(textBody).netBalance
+                        const netBalance = JSON.parse(textBody).mojo
                         if (typeof netBalance === 'number') {
                             console.log(`url: ${response.url()}`);
                             console.log(textBody);
