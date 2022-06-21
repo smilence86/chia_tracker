@@ -21,7 +21,7 @@ class Tracker {
 
     async start() {
         console.log(`start checking: [${new Date().toISOString()}] ------------------`);
-        const filepath = path.resolve(process.cwd(), 'config.json');
+        const filepath = path.resolve(process.cwd(), 'config/default.json');
         const config = await this.readConfig(filepath);
 
         for await (const account of config.accounts) {
