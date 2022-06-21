@@ -12,4 +12,4 @@ const job = new CronJob.CronJob(`0 */${interval} * * * *`, async () => {
 
 job.start();
 
-console.info('Job started.');
+console.info(`Job started. check period: every ${interval} minutes`);
