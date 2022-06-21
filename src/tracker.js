@@ -2,14 +2,13 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import jsonfile from 'jsonfile';
-import bluebird from 'bluebird';
 import request from 'superagent';
 import puppeteer from 'puppeteer';
 import { wechat } from './notifier/wechat.js';
 import { telegram } from './notifier/telegram.js';
 import randomUseragent from 'random-useragent';
 
-class Tracker{
+class Tracker {
 
     constructor () {
 
@@ -123,7 +122,7 @@ class Tracker{
      * @param {string} wallet 
      */
      async crawlBalance(wallet) {
-        return new bluebird(async (resolve, reject) => {
+        return new Promise( async (resolve, reject) => {
             let browser = null;
             let page = null;
 
@@ -148,21 +147,21 @@ class Tracker{
                 }
 
                 browser = await puppeteer.launch(options);
-                console.log('launched');
+                console.log('puppeteer launched');
 
                 page = await browser.newPage();
-                console.log('newPage');
+                console.log('puppeteer newPage');
 
                 const userAgent = randomUseragent.getRandom();
                 // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
                 await page.setUserAgent(userAgent);
-                console.log('setUserAgent');
+                console.log('puppeteer setUserAgent');
 
                 await page.setViewport({ width: 1920, height: 1080 });
-                console.log('setViewport');
+                console.log('puppeteer setViewport');
 
                 page.setDefaultNavigationTimeout(20000);
-                console.log('setDefaultNavigationTimeout');
+                console.log('puppeteer setDefaultNavigationTimeout');
 
                 page.on('response', async response => {
                     if (response.request().resourceType() !== 'xhr'){
@@ -193,18 +192,18 @@ class Tracker{
                 });
 
                 await page.goto(url, { waitUntil: 'networkidle0' });
-                console.log('goto page');
+                console.log('puppeteer goto page');
 
                 await page.waitForTimeout(1000);
-                console.log('waitForTimeout');
+                console.log('puppeteer waitForTimeout');
 
                 // await page.screenshot({ path: 'example.png' });
 
                 await page.close();
-                console.log('page.close');
+                console.log('puppeteer page.close');
 
                 await browser.close();
-                console.log('browser.close');
+                console.log('puppeteer browser.close');
 
                 resolve(results);
 
