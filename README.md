@@ -80,7 +80,7 @@ docker rmi smilence86/chia_tracker:latest
 docker pull smilence86/chia_tracker:latest
 
 # run container again
-docker run --name chia_tracker --restart=always -d --init -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
+docker run --name chia_tracker --restart=always -d --init -v /folder_path/config.json:/usr/src/app/config/default.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
 ```
 
 &nbsp;  
