@@ -13,7 +13,7 @@ class Tracker{
 
     constructor () {
 
-        this.pagePrefix = 'https://www.chiaexplorer.com/blockchain/address/';
+        this.pagePrefix = 'https://blockchain.chiaexplorer.com/blockchain/address/';
         
         this.balancePrefix = 'https://this-api-will-break-all-the-time-do-not-use-2124.chiaexplorer.com/balance/';
 
