@@ -160,7 +160,7 @@ class Tracker {
                 await page.setViewport({ width: 1920, height: 1080 });
                 console.log('puppeteer setViewport');
 
-                page.setDefaultNavigationTimeout(20000);
+                page.setDefaultNavigationTimeout(60000);
                 console.log('puppeteer setDefaultNavigationTimeout');
 
                 page.on('response', async response => {
