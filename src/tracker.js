@@ -191,7 +191,7 @@ class Tracker {
                         if (url.indexOf('/api/chia/blockchain/address') >= 0) {
                             const body = JSON.parse(textBody);
                             if (body.hasOwnProperty('balance')) {
-                                results.balance = parseFloat(JSON.parse(textBody).balance);
+                                results.balance = parseFloat(body.balance);
                             }
                         }
                     } catch (e) {
