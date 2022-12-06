@@ -171,6 +171,8 @@ class Tracker {
                     }
                     const textBody = await response.text();
                     const url = response.url();
+                    console.log(`url: ${url}`);
+                    console.log(textBody);
                     try {
                         // parse balance
                         // const netBalance = JSON.parse(textBody).mojo
@@ -187,7 +189,10 @@ class Tracker {
                         // }
 
                         if (url.indexOf('/api/chia/blockchain/address') >= 0) {
-                            results.balance = parseFloat(JSON.parse(textBody).balance);
+                            const body = JSON.parse(textBody);
+                            if (body.hasOwnProperty('balance')) {
+                                results.balance = parseFloat(JSON.parse(textBody).balance);
+                            }
                         }
                     } catch (e) {
                         // console.error(e.stack || e);
