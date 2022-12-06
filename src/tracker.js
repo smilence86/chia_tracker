@@ -12,7 +12,9 @@ class Tracker {
 
     constructor () {
 
-        this.pagePrefix = 'https://blockchain.chiaexplorer.com/blockchain/address/';
+        // this.pagePrefix = 'https://blockchain.chiaexplorer.com/blockchain/address/';
+
+        this.pagePrefix = 'https://chia.tt/info/address/';
         
         this.balancePrefix = 'https://this-api-will-break-all-the-time-do-not-use-2124.chiaexplorer.com/balance/';
 
@@ -168,19 +170,24 @@ class Tracker {
                         return;
                     }
                     const textBody = await response.text();
+                    const url = response.url();
                     try {
                         // parse balance
-                        const netBalance = JSON.parse(textBody).mojo
-                        if (typeof netBalance === 'number') {
-                            console.log(`url: ${response.url()}`);
-                            console.log(textBody);
-                            results.balance = netBalance / 1000000000000;  // price unit: mojo
-                        }
-                        // parse price
-                        if (JSON.parse(textBody).price) {
-                            console.log(`url: ${response.url()}`);
-                            console.log(textBody);
-                            results.price = JSON.parse(textBody).price;
+                        // const netBalance = JSON.parse(textBody).mojo
+                        // if (typeof netBalance === 'number') {
+                        //     console.log(`url: ${url}`);
+                        //     console.log(textBody);
+                        //     results.balance = netBalance / 1000000000000;  // price unit: mojo
+                        // }
+                        // // parse price
+                        // if (JSON.parse(textBody).price) {
+                        //     console.log(`url: ${url}`);
+                        //     console.log(textBody);
+                        //     results.price = JSON.parse(textBody).price;
+                        // }
+
+                        if (url.indexOf('/api/chia/blockchain/address') >= 0) {
+                            results.balance = parseFloat(JSON.parse(textBody).balance);
                         }
                     } catch (e) {
                         // console.error(e.stack || e);
