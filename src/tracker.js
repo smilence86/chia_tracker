@@ -22,7 +22,7 @@ class Tracker {
     }
 
     async start() {
-        console.log(`start checking: [${new Date().toISOString()}] ------------------`);
+        console.log(`start checking: [${new Date().toISOString()}] ------------------\n`);
         const filepath = path.resolve(process.cwd(), 'config/default.json');
         const config = await this.readConfig(filepath);
 
@@ -33,7 +33,7 @@ class Tracker {
             }
             console.log('\n');
         }
-        console.log(`check completed. [${new Date().toISOString()}] ------------------\n\n`);
+        console.log(`check completed. [${new Date().toISOString()}] ------------------\n\n\n`);
     }
 
     async trackingOneWallet(filepath, config, account) {
@@ -134,7 +134,7 @@ class Tracker {
             };
             try {
                 const url = this.pagePrefix + wallet;
-                console.log(`checking: ${url}`);
+                console.log(`Checking url: ${url}`);
                 const options = {
                     headless: true,
                     ignoreHTTPSErrors: true,
