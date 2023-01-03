@@ -17,11 +17,11 @@ class Telegram{
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
             // console.info(url);
             const res = await request.post(url)
-                .set('Content-type', 'application/x-www-form-urlencoded')
+                // .set('Content-type', 'application/x-www-form-urlencoded')
                 .send({
-                    chat_id: chat_id,
-                    text,
-                    parse_mode: 'MarkdownV2'
+                    parse_mode: 'MarkdownV2',
+                    chat_id,
+                    text
                 }).timeout(10 * 1000).retry(5);
             console.log(`\n${res.text}`);
         } catch (e) {
