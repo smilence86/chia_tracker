@@ -52,7 +52,7 @@ Telegram bot: [https://core.telegram.org/bots#6-botfather](https://core.telegram
 
 ## Run with docker
 ```{r, engine='sh', count_lines}
-docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
+docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/usr/src/app/config.json -e TZ=Asia/Shanghai smilence86/chia_tracker:latest
 ```
 * Replacing "folder_path" with yours.
 
@@ -80,7 +80,7 @@ docker rmi smilence86/chia_tracker:latest
 docker pull smilence86/chia_tracker:latest
 
 # run container again
-docker run -d --name chia_tracker --restart=always --init -v /folder_path/config.json:/usr/src/app/config/default.json -e TZ=Asia/Chongqing smilence86/chia_tracker:latest
+docker run -d --name chia_tracker --restart=always --init -v /folder_path/config.json:/usr/src/app/config/default.json -e TZ=Asia/Shanghai smilence86/chia_tracker:latest
 ```
 
 &nbsp;  
