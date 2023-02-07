@@ -12,7 +12,8 @@ class Telegram{
             .replace(/\>/g, '\\>')
             .replace(/\+/g, '\\+')
             .replace(/\,/g, '\\,')
-            .replace(/\!/g, '\\!');
+            .replace(/\!/g, '\\!')
+            .replace(/\-/g, '\\-');
         const now = new Date();
         try {
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
