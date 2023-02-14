@@ -28,4 +28,6 @@ RUN npm install --registry=https://registry.npmmirror.com
 
 RUN npm audit fix
 
+RUN rm -rf /tmp/*
+
 CMD ["node","index.js"]
