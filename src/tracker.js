@@ -7,6 +7,7 @@ import puppeteer from 'puppeteer';
 import { wechat } from './notifier/wechat.js';
 import { telegram } from './notifier/telegram.js';
 import randomUseragent from 'random-useragent';
+import { Utils } from './utils.js';
 
 class Tracker {
 
@@ -139,7 +140,7 @@ class Tracker {
                     headless: true,
                     ignoreHTTPSErrors: true,
                     acceptInsecureCerts: true,
-                    args: ['--headless', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote']
+                    args: ['--headless', '--start-maximized', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote']
                 };
                 // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
                 
@@ -148,22 +149,22 @@ class Tracker {
                     options.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
                 }
 
-                browser = await puppeteer.launch(options);
                 console.log('puppeteer launched');
+                browser = await puppeteer.launch(options);
 
-                page = await browser.newPage();
                 console.log('puppeteer newPage');
+                page = await browser.newPage();
 
-                const userAgent = randomUseragent.getRandom();
-                // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36');
-                await page.setUserAgent(userAgent);
                 console.log('puppeteer setUserAgent');
+                // const userAgent = randomUseragent.getRandom();
+                // await page.setUserAgent(userAgent);
+                await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36');
 
-                await page.setViewport({ width: 1920, height: 1080 });
                 console.log('puppeteer setViewport');
+                await page.setViewport({ width: 1920, height: 1080 });
 
+                console.log('puppeteer setDefaultNavigationTimeout to 60s');
                 page.setDefaultNavigationTimeout(60000);
-                console.log('puppeteer setDefaultNavigationTimeout');
 
                 page.on('response', async response => {
                     if (response.request().resourceType() !== 'xhr'){
@@ -203,19 +204,19 @@ class Tracker {
                     console.error('Puppeteer error.', err);
                 });
 
+                console.log(`puppeteer goto page: ${url}`);
                 await page.goto(url, { waitUntil: 'networkidle0' });
-                console.log('puppeteer goto page');
 
-                await page.waitForTimeout(1000);
-                console.log('puppeteer waitForTimeout');
+                console.log('sleep 2s');
+                await Utils.delay(2000);
 
                 // await page.screenshot({ path: 'example.png' });
 
-                await page.close();
                 console.log('puppeteer page.close');
+                await page.close();
 
-                await browser.close();
                 console.log('puppeteer browser.close');
+                await browser.close();
 
                 resolve(results);
 
