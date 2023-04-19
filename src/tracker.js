@@ -156,9 +156,11 @@ class Tracker {
                 page = await browser.newPage();
 
                 console.log('puppeteer setUserAgent');
-                // const userAgent = randomUseragent.getRandom();
-                // await page.setUserAgent(userAgent);
-                await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36');
+                const userAgent = randomUseragent.getRandom((ua) => {
+                    return ua.browserName === 'Firefox';
+                });
+                await page.setUserAgent(userAgent);
+                // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36');
 
                 console.log('puppeteer setViewport');
                 await page.setViewport({ width: 1920, height: 1080 });
