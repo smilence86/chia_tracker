@@ -163,7 +163,7 @@ class Tracker {
                 // await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36');
 
                 console.log('puppeteer setViewport');
-                await page.setViewport({ width: 1920, height: 1080 });
+                await page.setViewport({ isMobile: false, width: 1920, height: 1080 });
 
                 console.log('puppeteer setDefaultNavigationTimeout to 60s');
                 page.setDefaultNavigationTimeout(60000);
