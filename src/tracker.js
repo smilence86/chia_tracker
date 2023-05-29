@@ -137,7 +137,7 @@ class Tracker {
                 const url = this.pagePrefix + wallet;
                 console.log(`Checking url: ${url}`);
                 const options = {
-                    headless: true,
+                    headless: 'new',
                     ignoreHTTPSErrors: true,
                     acceptInsecureCerts: true,
                     args: ['--headless', '--start-maximized', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote']
