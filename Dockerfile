@@ -1,4 +1,17 @@
+FROM node:16-alpine AS builder
+
+WORKDIR /usr/src/app
+
+COPY package.json /usr/src/app
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
+RUN npm install --omit=dev --registry=https://registry.npmmirror.com
+
+
 FROM node:16-alpine
+
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
 RUN apk add --no-cache \
       chromium \
@@ -7,27 +20,18 @@ RUN apk add --no-cache \
       harfbuzz \
       ca-certificates \
       ttf-freefont
-
-# RUN echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
-#     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
-#     apk add --no-cache \
-#       chromium \
-#       nss
-
-# RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-COPY . /usr/src/app
-
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+  
+RUN apk add wqy-zenhei --update-cache --repository http://nl.alpinelinux.org/alpine/edge/testing
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-RUN npm install --registry=https://registry.npmmirror.com
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app /usr/src/app
+
+COPY . /usr/src/app
 
 RUN npm audit fix
-
-RUN rm -rf /tmp/*
 
 CMD ["node","index.js"]
