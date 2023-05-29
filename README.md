@@ -1,6 +1,6 @@
 # chia_tracker
 
-Tracking your chia wallets and receiving notifications which getting rewards from mining xch coin.
+Tracking your chia wallets and receiving notifications when balance of account changed.
 
 You can configure multi-wallets to tracking, notifier for multi-users to receiving, It's safe and will not leak your wallet address or something else, run it at your own local devices without risk.
 
@@ -62,7 +62,7 @@ docker run --name chia_tracker --restart always -d -v /folder_path/config.json:/
 
 ## Check log
 ```{r, engine='sh', count_lines}
-docker logs -f chia_tracker
+docker logs -f --tail 500 chia_tracker
 ```
 
 ## Upgrade docker image
