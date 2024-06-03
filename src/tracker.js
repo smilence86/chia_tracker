@@ -15,7 +15,7 @@ class Tracker {
 
         // this.pagePrefix = 'https://blockchain.chiaexplorer.com/blockchain/address/';
 
-        this.pagePrefix = 'https://chia.tt/info/address/';
+        this.pagePrefix = 'https://xch.dwd.com/info/address/';
         
         this.balancePrefix = 'https://this-api-will-break-all-the-time-do-not-use-2124.chiaexplorer.com/balance/';
 
@@ -26,6 +26,8 @@ class Tracker {
         console.log(`start checking: [${new Date().toISOString()}] ------------------\n`);
         const filepath = path.resolve(process.cwd(), 'config/default.json');
         const config = await this.readConfig(filepath);
+
+        this.pagePrefix = config.pagePrefix;
 
         for await (const account of config.accounts) {
             const res = await this.trackingOneWallet(filepath, config, account);

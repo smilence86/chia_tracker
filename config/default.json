@@ -1,5 +1,6 @@
 {
     "interval": 5,
+    "pagePrefix": "https://xch.dwd.com/info/address/",
     "accounts": [
         {
             "wallet": "xch1******",
