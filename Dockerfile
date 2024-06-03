@@ -21,7 +21,9 @@ RUN apk add --no-cache \
       ca-certificates \
       ttf-freefont
   
-RUN apk add wqy-zenhei --update-cache --repository http://nl.alpinelinux.org/alpine/edge/testing
+# RUN apk add wqy-zenhei --update-cache --repository http://nl.alpinelinux.org/alpine/edge/testing
+
+RUN wget https://github.com/notofonts/noto-cjk/raw/main/google-fonts/NotoSerifSC%5Bwght%5D.ttf && mkdir -p ~/.local/share/fonts/noto && cp *.ttf ~/.local/share/fonts/noto && fc-cache -f -v
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
