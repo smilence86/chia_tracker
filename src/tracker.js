@@ -27,7 +27,9 @@ class Tracker {
         const filepath = path.resolve(process.cwd(), 'config/default.json');
         const config = await this.readConfig(filepath);
 
-        this.pagePrefix = config.pagePrefix;
+        if (config.pagePrefix) {
+            this.pagePrefix = config.pagePrefix;
+        }
 
         for await (const account of config.accounts) {
             const res = await this.trackingOneWallet(filepath, config, account);

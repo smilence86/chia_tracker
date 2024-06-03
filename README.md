@@ -21,6 +21,7 @@ Telegram bot: [https://core.telegram.org/bots#6-botfather](https://core.telegram
 ```json
 {
     "interval": 5,
+    "pagePrefix": "https://xch.dwd.com/info/address/",
     "accounts": [
         {
             "wallet": "xch1******",
