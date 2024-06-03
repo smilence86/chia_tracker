@@ -139,10 +139,10 @@ class Tracker {
                 const url = this.pagePrefix + wallet;
                 console.log(`Checking url: ${url}`);
                 const options = {
-                    headless: 'new',
+                    headless: true,
                     ignoreHTTPSErrors: true,
                     acceptInsecureCerts: true,
-                    args: ['--headless', '--start-maximized', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote']
+                    args: ['--start-maximized', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote']
                 };
                 // console.log(`PUPPETEER_EXECUTABLE_PATH: ${process.env.PUPPETEER_EXECUTABLE_PATH}`);
                 
