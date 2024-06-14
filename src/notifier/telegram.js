@@ -24,7 +24,7 @@ class Telegram{
                     parse_mode: 'MarkdownV2',
                     chat_id,
                     text
-                }).timeout(10 * 1000).retry(5);
+                }).timeout(40 * 1000).retry(5);
             console.log(`\n${res.text}`);
         } catch (e) {
             console.info(`------------- send to telegram failed ${now.toISOString()} --------------`);
